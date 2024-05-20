@@ -2,10 +2,14 @@ package efub.toyProject.X.account.dto;
 
 import efub.toyProject.X.account.domain.Account;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AccountResponseDto {
     private Long accountId;
@@ -13,15 +17,8 @@ public class AccountResponseDto {
     private String nickname;
     private String email;
     private String bio;
+    private LocalDateTime createdDate;
 
-
-    public AccountResponseDto(Long accountId, String name, String nickname, String email, String bio) {
-        this.accountId = accountId;
-        this.name = name;
-        this.nickname = nickname;
-        this.email = email;
-        this.bio = bio;
-    }
 
     public static AccountResponseDto from(Account account) {
         return new AccountResponseDto(
@@ -29,6 +26,8 @@ public class AccountResponseDto {
                 account.getName(),
                 account.getNickname(),
                 account.getEmail(),
-                account.getBio());
+                account.getBio(),
+                account.getCreatedDate()
+        );
     }
 }
