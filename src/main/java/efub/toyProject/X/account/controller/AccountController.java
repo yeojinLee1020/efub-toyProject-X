@@ -6,10 +6,8 @@ import efub.toyProject.X.account.dto.SignUpRequestDto;
 import efub.toyProject.X.account.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/accounts")
@@ -22,6 +20,14 @@ public class AccountController {
     public AccountResponseDto signUp(@RequestBody @Valid final SignUpRequestDto requestDto){
         Long id = accountService.signup(requestDto); //등록
         Account findAccount = accountService.findAccountById(id);
+        return AccountResponseDto.from(findAccount);
+    }
+
+    // 계정 조회
+    @GetMapping("/{accountId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public AccountResponseDto getAccount(@PathVariable Long accountId) {
+        Account findAccount = accountService.findAccountById(accountId);
         return AccountResponseDto.from(findAccount);
     }
 }
