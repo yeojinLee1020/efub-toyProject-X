@@ -2,6 +2,7 @@ package efub.toyProject.X.account.controller;
 
 import efub.toyProject.X.account.domain.Account;
 import efub.toyProject.X.account.dto.AccountResponseDto;
+import efub.toyProject.X.account.dto.CreateAccountResponseDto;
 import efub.toyProject.X.account.dto.SignUpRequestDto;
 import efub.toyProject.X.account.service.AccountService;
 import jakarta.validation.Valid;
@@ -17,10 +18,9 @@ public class AccountController {
 
     // 계정 생성
     @PostMapping
-    public AccountResponseDto signUp(@RequestBody @Valid final SignUpRequestDto requestDto){
-        Long id = accountService.signup(requestDto); //등록
-        Account findAccount = accountService.findAccountById(id);
-        return AccountResponseDto.from(findAccount);
+    public CreateAccountResponseDto signUp(@RequestBody @Valid final SignUpRequestDto requestDto){
+        accountService.signup(requestDto); //등록
+        return new CreateAccountResponseDto();
     }
 
     // 계정 조회

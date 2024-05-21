@@ -17,7 +17,7 @@ public class AccountResponseDto {
     private String nickname;
     private String email;
     private String bio;
-    private LocalDateTime createdDate;
+    private LocalDateTime joinDate;
 
 
     public static AccountResponseDto from(Account account) {
@@ -27,7 +27,7 @@ public class AccountResponseDto {
                 account.getNickname(),
                 account.getEmail(),
                 account.getBio(),
-                account.getCreatedDate()
+                account.getJoinDate()
         );
     }
 }
