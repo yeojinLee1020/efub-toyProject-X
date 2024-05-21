@@ -28,7 +28,7 @@ public class TweetController {
         return new CreateTweetResponseDto();
     }
 
-    // 트윗 게시글 전체 조회
+    // 트윗 전체 조회
     @GetMapping()
     public AllTweetsResponseDto getAllTweets(){
         List<TweetResponseDto> list = new ArrayList<>();
@@ -38,6 +38,13 @@ public class TweetController {
             list.add(dto);
         }
          return new AllTweetsResponseDto(list);
+    }
+
+    // 트윗 상세 조회
+    @GetMapping("/{tweetId}")
+    public TweetResponseDto getOneTweet(@PathVariable(name = "tweetId") Long tweetId){
+        Tweet tweet = tweetService.findTweetById(tweetId);
+        return TweetResponseDto.from(tweet, tweet.getAccount().getNickname());
     }
 
 }
