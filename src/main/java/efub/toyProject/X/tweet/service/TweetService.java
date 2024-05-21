@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -22,5 +24,11 @@ public class TweetService {
         Tweet tweet = requestDto.toEntity(account);
         Tweet savedTweet = tweetRepository.save(tweet);
         return savedTweet;
+    }
+
+    // 트윗 목록 조회시 모든 트윗 가져오는 메서드
+    public List<Tweet> findAllTweets() {
+        List<Tweet> tweets = tweetRepository.findAll();
+        return tweets;
     }
 }

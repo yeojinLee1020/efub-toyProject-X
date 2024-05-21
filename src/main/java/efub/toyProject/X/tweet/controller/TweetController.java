@@ -1,6 +1,7 @@
 package efub.toyProject.X.tweet.controller;
 
 import efub.toyProject.X.tweet.domain.Tweet;
+import efub.toyProject.X.tweet.dto.AllTweetsResponseDto;
 import efub.toyProject.X.tweet.dto.CreateTweetResponseDto;
 import efub.toyProject.X.tweet.dto.TweetRequestDto;
 import efub.toyProject.X.tweet.dto.TweetResponseDto;
@@ -9,6 +10,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +26,18 @@ public class TweetController {
     public CreateTweetResponseDto createTweet(@RequestBody @Valid final TweetRequestDto requestDto){
         Tweet savedTweet = tweetService.createNewTweet(requestDto);
         return new CreateTweetResponseDto();
+    }
+
+    // 트윗 게시글 전체 조회
+    @GetMapping()
+    public AllTweetsResponseDto getAllTweets(){
+        List<TweetResponseDto> list = new ArrayList<>();
+        List<Tweet> tweets = tweetService.findAllTweets();
+        for (Tweet tweet : tweets) {
+            TweetResponseDto dto = TweetResponseDto.from(tweet, tweet.getAccount().getNickname());
+            list.add(dto);
+        }
+         return new AllTweetsResponseDto(list);
     }
 
 }
