@@ -33,9 +33,19 @@ public class TweetService {
         return tweets;
     }
 
-    // 트윗아이디로 해당 트윗 찾아서 가져오는 메서드
+    // 트윗 아이디로 해당 트윗 찾아서 가져오는 메서드
     public Tweet findTweetById(Long tweetId) {
         return tweetRepository.findById(tweetId)
                 .orElseThrow(()-> new EntityNotFoundException("해당 Id를 가진 tweet을 찾을 수 없습니다."));
+    }
+
+    // 트윗 삭제 메서드
+    public void deleteTweet(Long tweetId, Long accountId) {
+        Tweet tweet = tweetRepository.findById(tweetId)
+                .orElseThrow(() -> new EntityNotFoundException("해당 id를 가진 tweet을 찾을 수 없습니다. id="+tweetId));
+        if (!tweetRepository.existsByTweetIdAndAccount_AccountId(tweetId, accountId)) {
+            throw new RuntimeException("삭제 권한이 없는 사용자입니다.");
+        }
+        tweetRepository.delete(tweet);
     }
 }

@@ -47,4 +47,12 @@ public class TweetController {
         return TweetResponseDto.from(tweet, tweet.getAccount().getNickname());
     }
 
+    // 트윗 삭제
+    @DeleteMapping("/{tweetId}")
+    public String deletePost(@PathVariable(name = "tweetId") Long tweetId,
+                             @RequestParam(name="accountId") Long accountId){
+        tweetService.deleteTweet(tweetId, accountId);
+        return "성공적으로 삭제되었습니다";
+    }
+
 }
