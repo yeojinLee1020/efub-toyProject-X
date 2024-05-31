@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://efub-week7-rds.c5q4e6e0enhw.ap-northeast-2.rds.amazonaws.com:3306/X?createDatabaseIfNotExist=true&characterEncoding=UTF-8&characterSetResults=UTF-8
+    url: jdbc:mysql://efub-toyproject.c5q4e6e0enhw.ap-northeast-2.rds.amazonaws.com:3306/X?createDatabaseIfNotExist=true&characterEncoding=UTF-8&characterSetResults=UTF-8
     username: ??
     password: ??
   jpa:
